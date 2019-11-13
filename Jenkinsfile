@@ -12,7 +12,7 @@ stages {
 
       // Get some code from a GitHub repository
 
-      git 'https://github.com/raknas999/game-of-life.git'
+      git 'https://github.com/RamachandraAnnadi/game-of-life.git'
 
       // Get the Maven tool.
      
@@ -70,7 +70,7 @@ post {
             archiveArtifacts 'gameoflife-web/target/*.war'
         }
         failure {
-            mail to:"sankar.dadi@qentelli.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Build failed"
+            mail to:"chandu.annadi1@qentelli.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Build failed"
         }
     }       
 }
