@@ -66,6 +66,12 @@ stages {
                                  sudo docker push docker.io/ramachandraannadi/gameoflife-image:$BUILD_NUMBER'''
       }
  }
+ stage('ssh check')
+ {
+    steps{
+        sh ssh jenkins@13.59.225.77
+    }
+ }
 }
 post {
         success {
