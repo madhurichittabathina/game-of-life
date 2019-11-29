@@ -66,14 +66,19 @@ stages {
                                  sudo docker push docker.io/ramachandraannadi/gameoflife-image:$BUILD_NUMBER'''
       }
  }
- stage('ssh check')
- {
-    steps{
-        sh scp Jenkinsfile ec2-user@13.59.225.77:/home/ec2-user
-        //sh ssh jenkins@13.59.225.77
-        //sh cat /home/ec2-user/test
-    }
- }
+stage("tomcat") {
+                    agent {
+                        label "tomcat"
+                    }
+                    stages {
+                        stage("test") {
+                            steps {
+                                sh "cat /home/jenkins/test"
+                            }
+                        }
+						}
+						}
+       
 }
 post {
         success {
