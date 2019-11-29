@@ -70,6 +70,7 @@ stages {
  {
     steps{
         sh ssh jenkins@13.59.225.77
+        sh cat /home/ec2-user/test
     }
  }
 }
