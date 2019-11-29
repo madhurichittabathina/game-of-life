@@ -70,8 +70,8 @@ stages {
  {
     steps{
         sh scp Jenkinsfile ec2-user@13.59.225.77:/home/ec2-user
-        #sh ssh jenkins@13.59.225.77
-        #sh cat /home/ec2-user/test
+        //sh ssh jenkins@13.59.225.77
+        //sh cat /home/ec2-user/test
     }
  }
 }
