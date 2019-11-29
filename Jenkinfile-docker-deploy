@@ -78,7 +78,7 @@ stage("tomcat") {
                                 sh "cat /home/jenkins/test"
 				sh "cd /home/jenkins/"
 				sh "docker pull ramachandraannadi/gameoflife-image:56"
-				sh "docker run -it --name tomcat-docker -p 8000:8080 -v /var/run/docker.sock:/var/run/docker.sock gameoflife-image:latest "
+				sh "docker run -it -p 8000:8080 gameoflife-image:56 "
                             }
                         }
 						}
