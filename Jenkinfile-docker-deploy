@@ -78,7 +78,8 @@ stage("tomcat") {
                                 sh "cat /home/jenkins/test"
 				sh "cd /home/jenkins/"
 				sh "docker pull ramachandraannadi/gameoflife-image:$BUILD_NUMBER"
-				sh "docker run -d -p 8000:8080 ramachandraannadi/gameoflife-image:$BUILD_NUMBER"
+				sh "docker rm -f gameoflife-web
+				sh "docker run -d -p --name gameoflife-web 8000:8080 ramachandraannadi/gameoflife-image:$BUILD_NUMBER"
                             }
                         }
 						}
