@@ -93,13 +93,11 @@ post {
         failure {
             mail to:"ramachandra.annadi@qentelli.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Build failed"
         }
-	
-	post {
         always {
 	    /* Use slackNotifier to provide current build result as parameter */   
             slackNotifier(currentBuild.currentResult)
             cleanWs()
 	    }
-    }       
+        
 }
 }
