@@ -11,7 +11,7 @@ stages {
  stage('Preparation') { 
      steps {
 // for display purposes
-
+//test only
       // Get some code from a GitHub repository
 
       git 'https://github.com/RamachandraAnnadi/game-of-life.git'
