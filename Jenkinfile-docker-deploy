@@ -68,22 +68,38 @@ stages {
                                  sudo docker push docker.io/ramachandraannadi/gameoflife-image:$BUILD_NUMBER'''
       }
  }
-stage("tomcat") {
-                    agent {
-                        label "tomcat"
-                    }
-                    stages {
-                        stage("test") {
-                            steps {
-                                sh "cat /home/jenkins/test"
-				sh "cd /home/jenkins/"
-				sh "docker pull ramachandraannadi/gameoflife-image:$BUILD_NUMBER"
-				sh "docker rm -f gameoflife-web"
-				sh "docker run -d --name gameoflife-web -p 8000:8080 ramachandraannadi/gameoflife-image:$BUILD_NUMBER"
-                            }
-                        }
-						}
-						}
+stage('install_deps') {
+steps {
+sh label: '', script: 'sudo yum install wget zip python-pip -y'
+sh "cd /tmp"
+sh "curl -o terraform.zip https://releases.hashicorp.com/terraform/0.12.17/terraform_0.12.17_linux_amd64.zip"
+sh "unzip terraform.zip"
+sh "sudo mv terraform /usr/bin"
+}
+}   
+stage('init_and_plan') {
+steps {
+sh "sudo terraform init /var/lib/jenkins/workspace"
+sh "sudo terraform plan /var/lib/jenkins/workspace"   
+}
+}
+
+stage('apply_changes') {
+steps {
+sh "sudo terraform apply -auto-approve /var/lib/jenkins/workspace"
+sh "terraform output > private_ip"
+}
+}
+stage ('login to aws') {
+steps {
+//def private_ip=cat private_ip | awk {'NR==2'} | tr -d {' '} | tr -d {'"'} |tr -d ',' 
+//sh 'ssh 'cat private_ip | awk {'NR==2'} | tr -d {' '} | tr -d {'"'} |tr -d ',' ''
+sh "docker pull ramachandraannadi/gameoflife-image:$BUILD_NUMBER"
+sh "docker rm -f gameoflife-web"
+sh "docker run -d --name gameoflife-web -p 8000:8080 ramachandraannadi/gameoflife-image:$BUILD_NUMBER"
+    }
+}
+
        
 }
 post {
